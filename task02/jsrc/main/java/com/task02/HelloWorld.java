@@ -10,13 +10,11 @@ import com.syndicate.deployment.model.RetentionSetting;
 import com.syndicate.deployment.model.lambda.url.AuthType;
 import com.syndicate.deployment.model.lambda.url.InvokeMode;
 
-import java.util.HashMap;
-import java.util.Map;
+
 
 @LambdaHandler(lambdaName = "hello_world",
         roleName = "hello_world-role",
-        isPublishVersion = true,
-        aliasName = "${lambdas_alias_name}",
+        isPublishVersion = false,
         logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
 @LambdaUrlConfig(
@@ -33,9 +31,12 @@ public class HelloWorld implements RequestHandler<APIGatewayV2HTTPEvent, APIGate
 		String getRawPath = apiGatewayV2HTTPEvent.getRawPath();
 		String httpMethod = (apiGatewayV2HTTPEvent.getRequestContext() != null && apiGatewayV2HTTPEvent.getRequestContext().getHttp().getMethod() != null) ? apiGatewayV2HTTPEvent.getRequestContext().getHttp().getMethod() : null;
 
-		if (getRawPath.equals("/hello") && httpMethod.equalsIgnoreCase("GET")) {
-			apiGatewayV2HTTPResponse = APIGatewayV2HTTPResponse.builder().withBody("{\"statusCode\": 200, \"message\": \"Hello from Lambda\"}")
-					.withStatusCode(200).build();
+		if ("/hello".equals(getRawPath) && "GET".equalsIgnoreCase(httpMethod)) {
+			apiGatewayV2HTTPResponse = APIGatewayV2HTTPResponse
+					.builder()
+					.withStatusCode(200)
+					.withBody("{\"statusCode\": 200, \"message\": \"Hello from Lambda\"}")
+					.build();
 		} else {
 			apiGatewayV2HTTPResponse = APIGatewayV2HTTPResponse
 					.builder()
