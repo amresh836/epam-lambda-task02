@@ -1,0 +1,9 @@
+.idea
+.git
+task02/.syndicate-config-dev
+target/
+task03/.syndicate-config-dev
+task02/target
+task04/.syndicate-config-dev
+task04/target
+task04/.syndicate

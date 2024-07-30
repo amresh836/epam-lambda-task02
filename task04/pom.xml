@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>task02-group</groupId>
-    <artifactId>task02</artifactId>
+    <groupId>task04-group</groupId>
+    <artifactId>task04</artifactId>
     <version>1.0.0</version>
 
     <properties>
@@ -30,11 +30,6 @@
             <artifactId>aws-lambda-java-events</artifactId>
             <version>3.11.5</version>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.32</version>
-        </dependency>
         <!--Syndicate annotations-->
         <dependency>
             <groupId>net.sf.aws-syndicate</groupId>
@@ -57,7 +52,7 @@
                 <version>${syndicate.java.plugin.version}</version>
                 <configuration>
                     <packages>
-                        <package>com.task02</package>
+                        <package>com.task04</package>
                     </packages>
                     <fileName>${project.name}-${project.version}.jar</fileName>
                 </configuration>

@@ -48,3 +48,4 @@ public class HelloWorld implements RequestHandler<APIGatewayV2HTTPEvent, APIGate
 		return apiGatewayV2HTTPResponse;
 	}
 }
+
