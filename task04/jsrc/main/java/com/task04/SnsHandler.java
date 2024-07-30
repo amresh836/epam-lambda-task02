@@ -1,6 +1,7 @@
 package com.task04;
 
 import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.SNSEvent;
 import com.syndicate.deployment.annotations.events.SnsEventSource;
@@ -30,6 +31,8 @@ public class SnsHandler implements RequestHandler<SNSEvent, Map<String, Object>>
 			String message=record.getSNS().getMessage();
 			System.out.println("Received SNS message: " + message);
 		});
+		LambdaLogger lambdaLogger=context.getLogger();
+		System.out.println(lambdaLogger);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("statusCode", 200);
 		resultMap.put("message", "Hello from Lambda");

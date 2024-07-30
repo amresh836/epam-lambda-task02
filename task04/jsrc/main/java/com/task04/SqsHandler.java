@@ -1,6 +1,7 @@
 package com.task04;
 
 import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.SQSEvent;
 import com.syndicate.deployment.annotations.events.SqsTriggerEventSource;
@@ -31,6 +32,8 @@ public class SqsHandler implements RequestHandler<SQSEvent, Map<String, Object>>
 			System.out.println("Received message: " + messageBody);
 		});
 
+		LambdaLogger lambdaLogger=context.getLogger();
+		System.out.println(lambdaLogger);
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("statusCode", 200);
 		resultMap.put("message", "Hello from Lambda");
