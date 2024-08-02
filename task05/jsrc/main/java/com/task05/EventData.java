@@ -1,8 +1,11 @@
 package com.task05;
 
 
+import lombok.Builder;
+
 import java.util.Map;
 
+@Builder
 public class EventData {
    private String id;
    private int principalId;

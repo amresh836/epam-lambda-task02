@@ -1,7 +1,10 @@
 package com.task05;
 
+import lombok.Builder;
+
 import java.util.Map;
 
+@Builder
 public class RequestData {
 
     private int principalId;

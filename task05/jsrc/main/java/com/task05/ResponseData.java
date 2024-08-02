@@ -1,5 +1,8 @@
 package com.task05;
 
+import lombok.Builder;
+
+@Builder
 public class ResponseData {
     private int statusCode;
     private EventData eventData;

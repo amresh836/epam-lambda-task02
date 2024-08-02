@@ -19,14 +19,14 @@ import java.util.UUID;
         isPublishVersion = false,
         logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
-public class ApiHandler implements RequestHandler<RequestData, String> {
+public class ApiHandler implements RequestHandler<RequestData, ResponseData> {
 
     AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
     private DynamoDB dynamoDb = new DynamoDB(client);
     private String DYNAMODB_TABLE_NAME = "cmtr-75ee1823-Events";
 
     @Override
-    public String handleRequest(RequestData event, Context context) {
+    public ResponseData handleRequest(RequestData event, Context context) {
         int principalId=event.getPrincipalId();
         Map<String,String> content=event.getContent();
         String newId = UUID.randomUUID().toString();
@@ -39,6 +39,18 @@ public class ApiHandler implements RequestHandler<RequestData, String> {
                 .withMap("body",content);
         table.putItem(item);
 
-        return "Data saved successfully!!!";
+        EventData eventData=EventData.builder()
+                .id(newId)
+                .principalId(principalId)
+                .createdAt(currentTime)
+                .body(content)
+                .build();
+
+        ResponseData responseData=ResponseData.builder()
+                .statusCode(201)
+                .eventData(eventData)
+                .build();
+        return  responseData;
+
     }
 }
