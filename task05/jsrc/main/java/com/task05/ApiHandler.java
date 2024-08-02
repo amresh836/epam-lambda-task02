@@ -19,38 +19,39 @@ import java.util.UUID;
         isPublishVersion = false,
         logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
-public class ApiHandler implements RequestHandler<RequestData, ResponseData> {
+public class ApiHandler implements RequestHandler<RequestData, Response> {
 
     AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
     private DynamoDB dynamoDb = new DynamoDB(client);
     private String DYNAMODB_TABLE_NAME = "cmtr-75ee1823-Events";
 
     @Override
-    public ResponseData handleRequest(RequestData event, Context context) {
-        int principalId=event.getPrincipalId();
-        Map<String,String> content=event.getContent();
+    public Response handleRequest(RequestData event1, Context context) {
+
+        int principalId = event1.getPrincipalId();
+        Map<String, String> content = event1.getContent();
         String newId = UUID.randomUUID().toString();
         String currentTime = Instant.now().toString();
         Table table = dynamoDb.getTable(DYNAMODB_TABLE_NAME);
-        Item item=new Item()
-                .withPrimaryKey("id",newId)
-                .withInt("principalId",principalId)
-                .withString("createdAt",currentTime)
-                .withMap("body",content);
+        Item item = new Item()
+                .withPrimaryKey("id", newId)
+                .withInt("principalId", principalId)
+                .withString("createdAt", currentTime)
+                .withMap("body", content);
         table.putItem(item);
 
-        EventData eventData=EventData.builder()
+        Event event = Event.builder()
                 .id(newId)
                 .principalId(principalId)
                 .createdAt(currentTime)
                 .body(content)
                 .build();
 
-        ResponseData responseData=ResponseData.builder()
+        Response response = Response.builder()
                 .statusCode(201)
-                .eventData(eventData)
+                .event(event)
                 .build();
-        return  responseData;
+        return response;
 
     }
 }
