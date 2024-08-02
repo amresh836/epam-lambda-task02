@@ -33,7 +33,7 @@ public class ApiHandler implements RequestHandler<RequestData, Response> {
         int principalId = event1.getPrincipalId();
         Map<String, String> content = event1.getContent();
 
-        UUID newId = UUID.randomUUID();
+        String newId = UUID.randomUUID().toString();
         String currentTime = DateTimeFormatter.ISO_INSTANT
                 .format(Instant.now().atOffset(ZoneOffset.UTC));
 

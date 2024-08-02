@@ -4,7 +4,6 @@ package com.task05;
 import lombok.*;
 
 import java.util.Map;
-import java.util.UUID;
 
 @Builder
 @Setter
@@ -12,7 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Event {
-   private UUID id;
+   private String id;
    private int principalId;
    private String createdAt;
    private Map<String,String> body;
