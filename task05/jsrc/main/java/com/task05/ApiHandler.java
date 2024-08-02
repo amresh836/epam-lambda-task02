@@ -11,6 +11,8 @@ import com.syndicate.deployment.annotations.lambda.LambdaHandler;
 import com.syndicate.deployment.model.RetentionSetting;
 
 import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.UUID;
 
@@ -30,8 +32,11 @@ public class ApiHandler implements RequestHandler<RequestData, Response> {
 
         int principalId = event1.getPrincipalId();
         Map<String, String> content = event1.getContent();
-        String newId = UUID.randomUUID().toString();
-        String currentTime = Instant.now().toString();
+
+        UUID newId = UUID.randomUUID();
+        String currentTime = DateTimeFormatter.ISO_INSTANT
+                .format(Instant.now().atOffset(ZoneOffset.UTC));
+
         Table table = dynamoDb.getTable(DYNAMODB_TABLE_NAME);
         Item item = new Item()
                 .withPrimaryKey("id", newId)
