@@ -43,6 +43,7 @@ public class ApiHandler implements RequestHandler<RequestData, Response> {
                 .format(Instant.now().atOffset(ZoneOffset.UTC));
 
         Table table = dynamoDb.getTable(DYNAMODB_TABLE_NAME);
+
         Item item = new Item()
                 .withPrimaryKey("id", newId)
                 .withInt("principalId", principalId)
@@ -57,10 +58,12 @@ public class ApiHandler implements RequestHandler<RequestData, Response> {
                 .createdAt(currentTime)
                 .body(content)
                 .build();
+
         Response response = Response.builder()
                 .statusCode(201)
                 .event(event)
                 .build();
+
         return response;
 
     }
