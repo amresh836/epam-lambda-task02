@@ -26,7 +26,8 @@
   },
   "uuid_generator-role": {
     "predefined_policies": [
-      "AmazonS3FullAccess"
+      "AmazonS3FullAccess",
+      "AmazonS3ObjectLambdaExecutionRolePolicy"
     ],
     "principal_service": "lambda",
     "custom_policies": [
