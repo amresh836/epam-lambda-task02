@@ -41,6 +41,7 @@ public class ApiHandler implements RequestHandler<Object, String> {
 
         App client = new App(50.4375, 30.5);
         JsonObject weatherData = null;
+
         try {
             weatherData = client.getWeatherForecast();
         } catch (IOException e) {
