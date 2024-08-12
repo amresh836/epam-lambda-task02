@@ -270,7 +270,7 @@ public class ApiHandler implements RequestHandler<ApiHandler.APIRequest, APIGate
                 amazonDynamoDB.putItem(System.getenv("reservations_table"), attributesMap);
                 return APIGatewayV2HTTPResponse.builder().withStatusCode(200).withBody(UUID.randomUUID().toString()).withHeaders(headersForCORS).build();
             } else {
-                return APIGatewayV2HTTPResponse.builder().withStatusCode(400).withBody("ERROR, there is already a reservation or the table does not exist").build();
+                return APIGatewayV2HTTPResponse.builder().withStatusCode(400).withBody("ERROR, there is already a reservation or the table does not exist").withHeaders(headersForCORS).build();
             }
         } catch (Exception e) {
             System.err.println("Error while persisting reservation " + e.getMessage());
